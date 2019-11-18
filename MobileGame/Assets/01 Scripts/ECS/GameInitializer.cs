@@ -8,9 +8,11 @@ public class GameInitializer : MonoBehaviour
 {
     [SerializeField] private Mesh PlayerMesh;
     [SerializeField] private Material PlayerMaterial;
+    [SerializeField] private FollowCamera PlayerCamera;
 
     private void Start() 
     {
+
         EntityManager entityManager = World.Active.EntityManager;
         EntityArchetype playerArchetype =entityManager.CreateArchetype(
             
@@ -20,6 +22,7 @@ public class GameInitializer : MonoBehaviour
             typeof(LocalToWorld)
             );
 
+
         Entity playerEntity = entityManager.CreateEntity(playerArchetype);
         entityManager.SetSharedComponentData(playerEntity,
         new RenderMesh
@@ -28,8 +31,11 @@ public class GameInitializer : MonoBehaviour
             material = PlayerMaterial
         }
         );
+
         entityManager.SetComponentData(playerEntity, new MoveSpeed { xSpeed = 0.5f }
         );
+        
+        PlayerCamera.InitializeCamera(entityManager.GetComponentData <Translation>(playerEntity));
         
     }
 }

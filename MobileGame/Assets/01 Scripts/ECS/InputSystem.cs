@@ -13,7 +13,6 @@ public class InputSystem : ComponentSystem
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-
         Entities.ForEach((ref MoveSpeed moveSpeed, ref Translation transform) =>
         {
             transform.Value.x += horizontal * moveSpeed.xSpeed;
